@@ -80,7 +80,7 @@ const uploadToPromise = (uploadRequest: Request, logger: Logger) =>
 		uploadRequest.on('error', reject).on('data', function handleMessage(data) {
 			let obj;
 			data = data.toString();
-			logger.logDebug(`Received data: ${data}`);
+			logger.logInfo(`Received data: ${data} from ${uploadRequest.url}`);
 
 			try {
 				obj = JSON.parse(data);
