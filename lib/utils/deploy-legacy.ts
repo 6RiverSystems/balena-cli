@@ -80,7 +80,9 @@ const uploadToPromise = (uploadRequest: Request, logger: Logger) =>
 		uploadRequest.on('error', reject).on('data', function handleMessage(data) {
 			let obj;
 			data = data.toString();
-			logger.logInfo(`Received data: ${data} from ${uploadRequest.url}`);
+			logger.logInfo(`URI: ${uploadRequest.uri}`);
+			logger.logInfo(`Headers: ${uploadRequest.headers}`);
+			logger.logInfo(`Received data: ${data}`);
 
 			try {
 				obj = JSON.parse(data);
@@ -92,9 +94,9 @@ const uploadToPromise = (uploadRequest: Request, logger: Logger) =>
 
 			switch (obj.type) {
 				case 'error':
-					if (obj.error){
+					if (obj.error) {
 						reject(new Error(`Remote error: ${obj.error}`));
-					} else{
+					} else {
 						reject(new Error(`Remote error: ${obj}`));
 					}
 					break;
