@@ -92,7 +92,11 @@ const uploadToPromise = (uploadRequest: Request, logger: Logger) =>
 
 			switch (obj.type) {
 				case 'error':
-					reject(new Error(`Remote error: ${obj.error}`));
+					if (obj.error){
+						reject(new Error(`Remote error: ${obj.error}`));
+					} else{
+						reject(new Error(`Remote error: ${obj}`));
+					}
 					break;
 				case 'success':
 					resolve(obj);
