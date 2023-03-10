@@ -340,7 +340,7 @@ ${dockerignoreHelp}
 			);
 
 			let release: Release | ComposeReleaseInfo['release'];
-			if (appType.slug === 'legacy-v1' || appType.slug === 'legacy-v2') {
+			if (appType?.is_legacy) {
 				const { deployLegacy } = require('../utils/deploy-legacy');
 
 				const msg = getChalk().yellow(
@@ -368,6 +368,8 @@ ${dockerignoreHelp}
 					url,
 					options,
 				);
+
+				logger.logInfo(`Release ID: ${releaseId}`);
 
 				release = await sdk.models.release.get(releaseId, {
 					$select: ['commit'],
